@@ -1,5 +1,5 @@
 {
-  "name": "@pencilCool/react-native-wechat",
+  "name": "@pencilcool/react-native-wechat",
   "version": "0.0.1",
   "description": "wechat api for react native.",
   "keywords": [
@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "author": {
-    "name": "pencilCool",
+    "name": "pencilcool",
     "email": "yhtangcoder@@gmail.com"
   },
   "main": "dist/index.js",
