@@ -185,16 +185,6 @@ public class RNLWeChatModule extends ReactContextBaseJavaModule implements RNLWe
         }
     }
 
-    @ReactMethod
-    public void openTempSession(ReadableMap option, Promise promise) {
-        IWXAPI api = getSingletonAPI();
-        if (api.sendReq(RNLWeChatReq.getJumpToBizTempSessionReq(option))) {
-            promise.resolve(null);
-        } else {
-            promise.reject(RNLWeChatError.InvokeFailed.toString(),
-                    "Open temp session request failed.");
-        }
-    }
 
     @ReactMethod
     public void openRankList(Promise promise) {
@@ -240,27 +230,6 @@ public class RNLWeChatModule extends ReactContextBaseJavaModule implements RNLWe
         }
     }
 
-    @ReactMethod
-    public void jumpToBizProfile(ReadableMap option, Promise promise) {
-        IWXAPI api = getSingletonAPI();
-        if (api.sendReq(RNLWeChatReq.getJumpToBizProfileReq(option))) {
-            promise.resolve(null);
-        } else {
-            promise.reject(RNLWeChatError.InvokeFailed.toString(),
-                    "Jump to biz profile request failed.");
-        }
-    }
-
-    @ReactMethod
-    public void jumpToBizWebView(ReadableMap option, Promise promise) {
-        IWXAPI api = getSingletonAPI();
-        if (api.sendReq(RNLWeChatReq.getJumpToBizWebviewReq(option))) {
-            promise.resolve(null);
-        } else {
-            promise.reject(RNLWeChatError.InvokeFailed.toString(),
-                    "Jump to biz webview request failed.");
-        }
-    }
 
     @ReactMethod
     public void addCard(ReadableMap option, Promise promise) {
