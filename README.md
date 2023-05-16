@@ -135,16 +135,16 @@ interface IInitializeOption {
 }
 RNWechat.initialize({
   appID: "",
-  debug: true
-})
+  debug: true,
+});
 
-RNWechat.isAppInstalled()
+RNWechat.isAppInstalled();
 
-RNWechat.getAppInstallUrl()
+RNWechat.getAppInstallUrl();
 
-RNWechat.isSupportOpenApi()
+RNWechat.isSupportOpenApi();
 
-RNWechat.getSDKVersion()
+RNWechat.getSDKVersion();
 
 interface IAuthOption {
   state: string;
@@ -154,8 +154,8 @@ interface IAuthOption {
 RNWechat.auth({
   state: "",
   scope: RNWechat.AuthScope.UserInfo,
-  fallback: true
-})
+  fallback: true,
+});
 
 interface IPayOption {
   partnerId: string;
@@ -171,36 +171,27 @@ RNWechat.pay({
   nonce: "",
   timestamp: 0,
   package: "",
-  sign: ""
-})
+  sign: "",
+});
 
-RNWechat.offlinePay()
+RNWechat.offlinePay();
 
 interface INontaxPayOption {
   url: string;
 }
-RNWechat.nontaxPay({ url: "" })
+RNWechat.nontaxPay({ url: "" });
 
 interface IPayInsuranceOption {
   url: string;
 }
-RNWechat.payInsurance({ url: "" })
+RNWechat.payInsurance({ url: "" });
 
-interface IOpenTempSessionOption {
-  username: string;
-  session: string;
-}
-RNWechat.openTempSession({
-  username: "",
-  session: ""
-})
-
-RNWechat.openRankList()
+RNWechat.openRankList();
 
 interface IOpenWebViewOption {
   url: string;
 }
-RNWechat.openWebView({ url: "" })
+RNWechat.openWebView({ url: "" });
 
 interface IOpenBusinessViewOption {
   type: string;
@@ -210,46 +201,27 @@ interface IOpenBusinessViewOption {
 RNWechat.openBusinessView({
   type: "",
   query: "",
-  ext: ""
-})
+  ext: "",
+});
 
 interface IOpenBusinessWebViewOption {
   type: string;
   query: {
-      [key: string]: any,
+    [key: string]: any;
   };
 }
 RNWechat.openBusinessWebView({
   type: 0,
-  query: {}
-})
-
-RNWechat.jumpToBizProfile({
-  username: "",
-  type: RNWechat.BizProfileType.Normal,
-  ext: ""
-})
-
-interface IJumpToBizWebViewOption {
-  tousrname: string;
-  type?: MPWebViewType;
-  ext?: string;
-}
-RNWechat.jumpToBizWebView({
-  tousrname: "",
-  type: RNWechat.MPWebViewType.Ad,
-  ext: ''
-})
+  query: {},
+});
 
 interface ICardItem {
   id: string;
   ext: string;
 }
 RNWechat.addCard({
-  cards: [
-    { id: "", ext: "" }
-  ]
-})
+  cards: [{ id: "", ext: "" }],
+});
 
 interface IChooseCardOption {
   appID?: string;
@@ -271,8 +243,8 @@ RNWechat.chooseCard({
   signType: "",
   cardSign: "",
   timestamp: 0,
-  nonce: ""
-})
+  nonce: "",
+});
 
 interface IChooseInvoiceOption {
   appID?: string;
@@ -288,13 +260,13 @@ RNWechat.chooseInvoice({
   signType: "",
   cardSign: "",
   timestamp: 0,
-  nonce: ""
-})
+  nonce: "",
+});
 
 interface IInvoiceAuthInsertOption {
   url: string;
 }
-RNWechat.invoiceAuthInsert({ url: "" })
+RNWechat.invoiceAuthInsert({ url: "" });
 
 interface ILaunchMiniProgramOption {
   username: string;
@@ -306,13 +278,13 @@ RNWechat.launchMiniProgram({
   username: "",
   type: RNWechat.MiniProgramType.Test,
   path: "",
-  ext: ""
-})
+  ext: "",
+});
 
 interface ISubscribeMiniProgramMessageOption {
   appID: string;
 }
-RNWechat.subscribeMiniProgramMessage({ appID: "" })
+RNWechat.subscribeMiniProgramMessage({ appID: "" });
 
 enum MessageType {
   Text = 0,
@@ -344,8 +316,8 @@ interface ITextMediaMessage extends IBaseMediaMessage {
 RNWechat.sendMessage({
   scene: RNWechat.MessageScene.Session,
   messageType: RNWechat.MessageType.Text,
-  content: ""
-})
+  content: "",
+});
 
 interface IImageMediaMessage extends IBaseMediaMessage {
   image: string;
@@ -353,8 +325,8 @@ interface IImageMediaMessage extends IBaseMediaMessage {
 RNWechat.sendMessage({
   scene: RNWechat.MessageScene.Session,
   messageType: RNWechat.MessageType.Image,
-  image: ""
-})
+  image: "",
+});
 
 interface IMusicMediaMessage extends IBaseMediaMessage {
   url: string;
@@ -372,7 +344,7 @@ RNWechat.sendMessage({
   lowBandURL: "",
   dataURL: "",
   lowBandDataURL: "",
-})
+});
 
 interface IVideoMediaMessage extends IBaseMediaMessage {
   url: string;
@@ -386,7 +358,7 @@ RNWechat.sendMessage({
   messageThumb: "",
   url: "",
   lowBandURL: "",
-})
+});
 
 interface IFileMediaMessage extends IBaseMediaMessage {
   file: string;
@@ -398,7 +370,7 @@ RNWechat.sendMessage({
   messageTitle: "",
   file: "",
   ext: "",
-})
+});
 
 interface IWebpageMediaMessage extends IBaseMediaMessage {
   url: string;
@@ -410,7 +382,7 @@ RNWechat.sendMessage({
   messageDesc: "",
   messageThumb: "",
   url: "",
-})
+});
 
 enum MiniProgramType {
   // 正式版
@@ -440,8 +412,8 @@ RNWechat.sendMessage({
   url: "",
   messageDesc: "",
   messageThumb: "",
-  shareTicket: false
-})
+  shareTicket: false,
+});
 
 interface IAppExtendMediaMessage extends IBaseMediaMessage {
   url: string;
@@ -459,8 +431,8 @@ RNWechat.sendMessage({
   messageThumb: "",
   messageTag: "",
   messageExt: "",
-  messageAction: ""
-})
+  messageAction: "",
+});
 
 interface IEmoticonMediaMessage extends IBaseMediaMessage {
   image: string;
@@ -468,8 +440,8 @@ interface IEmoticonMediaMessage extends IBaseMediaMessage {
 RNWechat.sendMessage({
   scene: RNWechat.MessageScene.Session,
   messageType: RNWechat.MessageType.Emoticon,
-  image: ""
-})
+  image: "",
+});
 
 interface ILocationMediaMessage extends IBaseMediaMessage {
   lng: number;
@@ -481,8 +453,8 @@ RNWechat.sendMessage({
   lng: 0,
   lat: 0,
   messageTitle: "",
-  messageDesc: ""
-})
+  messageDesc: "",
+});
 
 interface ISubscribeMessageOption {
   scene: MessageScene;
@@ -492,8 +464,8 @@ interface ISubscribeMessageOption {
 RNWechat.subscribeMessage({
   scene: RNWechat.MessageScene.Session,
   templateID: "",
-  reserved: ""
-})
+  reserved: "",
+});
 
 enum WeChatRequestType {
   GetMessage = 0,
@@ -508,5 +480,5 @@ interface IWeChatRequestData {
   country: string;
   result: IMediaMessage;
 }
-RNWechat.listenRequest(data => {})
+RNWechat.listenRequest((data) => {});
 ```
