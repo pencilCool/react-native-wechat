@@ -1,26 +1,26 @@
 {
-  "name": "@yyyyu/react-native-wechat",
-  "version": "0.0.0-development",
+  "name": "@pencilCool/react-native-wechat",
+  "version": "0.0.1",
   "description": "wechat api for react native.",
   "keywords": [
     "react-native",
     "wechat",
     "weixin"
   ],
-  "homepage": "https://github.com/yyyyu/react-native-wechat",
+  "homepage": "https://github.com/pencilCool/react-native-wechat",
   "bugs": {
-    "url": "https://github.com/yyyyu/react-native-wechat/issues"
+    "url": "https://github.com/pencilCool/react-native-wechat/issues"
   },
   "license": "MIT",
   "author": {
-    "name": "yyyyu",
-    "email": "g592842897@gmail.com"
+    "name": "pencilCool",
+    "email": "yhtangcoder@@gmail.com"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yyyyu/react-native-wechat.git"
+    "url": "https://github.com/pencilCool/react-native-wechat.git"
   },
   "scripts": {
     "test": "echo ignore",
