@@ -1,6 +1,6 @@
 # react-native-wechat
 
-[WeChat SDK](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list) [![npm version](https://badge.fury.io/js/%40yyyyu%2Freact-native-wechat.svg)](https://www.npmjs.com/package/@yyyyu/react-native-wechat) [![Build Status](https://travis-ci.org/yyyyu/react-native-wechat.svg?branch=master)](https://travis-ci.org/yyyyu/react-native-wechat)
+[WeChat SDK](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list) [![npm version](https://badge.fury.io/js/%40pencilcool%2Freact-native-wechat.svg)](https://www.npmjs.com/package/@pencilcool/react-native-wechat) [![Build Status](https://travis-ci.org/pencilcool/react-native-wechat.svg?branch=master)](https://travis-ci.org/pencilcool/react-native-wechat)
 
 **SDK Version**
 iOS 1.8.4
@@ -15,13 +15,13 @@ react-native 0.59.5
 ## Getting Started
 
 ```bash
-yarn add @yyyyu/react-native-wechat
+yarn add @pencilcool/react-native-wechat
 # or
-npm i @yyyyu/react-native-wechat --save
+npm i @pencilcool/react-native-wechat --save
 ```
 
 ```bash
-react-native link @yyyyu/react-native-wechat
+react-native link @pencilcool/react-native-wechat
 ```
 
 ### iOS
@@ -127,7 +127,7 @@ keytool -list -v -keystore [[path/file.keystore]] | grep MD5 | { read s; echo "$
 ## API
 
 ```typescript
-import * as RNWechat from "@yyyyu/react-native-wechat";
+import * as RNWechat from "@pencilcool/react-native-wechat";
 
 interface IInitializeOption {
   appID: string;
