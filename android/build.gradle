@@ -15,7 +15,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.facebook.react:react-native:+'
+    implementation 'com.facebook.react:react-native:0.59.10'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android:+'
 }
 

@@ -6,9 +6,6 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.tencent.mm.opensdk.modelbiz.AddCardToWXCardPackage;
 import com.tencent.mm.opensdk.modelbiz.ChooseCardFromWXCardPackage;
-import com.tencent.mm.opensdk.modelbiz.JumpToBizProfile;
-import com.tencent.mm.opensdk.modelbiz.JumpToBizTempSession;
-import com.tencent.mm.opensdk.modelbiz.JumpToBizWebview;
 import com.tencent.mm.opensdk.modelbiz.OpenRankList;
 import com.tencent.mm.opensdk.modelbiz.OpenWebview;
 import com.tencent.mm.opensdk.modelbiz.SubscribeMessage;
@@ -65,12 +62,6 @@ class RNLWeChatReq {
         return req;
     }
 
-    static JumpToBizTempSession.Req getJumpToBizTempSessionReq(ReadableMap option) {
-        JumpToBizTempSession.Req req = new JumpToBizTempSession.Req();
-        req.toUserName = option.getString("username");
-        req.sessionFrom = option.getString("session");
-        return req;
-    }
 
     static OpenRankList.Req getOpenRankListReq() {
         return new OpenRankList.Req();
@@ -101,21 +92,6 @@ class RNLWeChatReq {
         return req;
     }
 
-    static JumpToBizProfile.Req getJumpToBizProfileReq(ReadableMap option) {
-        JumpToBizProfile.Req req = new JumpToBizProfile.Req();
-        req.profileType = option.getInt("type");
-        req.toUserName = option.getString("username");
-        req.extMsg = option.getString("ext");
-        return req;
-    }
-
-    static JumpToBizWebview.Req getJumpToBizWebviewReq(ReadableMap option) {
-        JumpToBizWebview.Req req = new JumpToBizWebview.Req();
-        req.webType = option.getInt("type");
-        req.toUserName = option.getString("username");
-        req.extMsg = option.getString("ext");
-        return req;
-    }
 
     static AddCardToWXCardPackage.Req getAddCardToWXCardPackageReq(ReadableMap option) {
         AddCardToWXCardPackage.Req req = new AddCardToWXCardPackage.Req();
