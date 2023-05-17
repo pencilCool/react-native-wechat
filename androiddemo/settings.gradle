@@ -16,4 +16,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "androiddemo"
 include ':app'
-include ':react-native-wechat'
+
+include ':android'
+project(':android').projectDir = new File(rootProject.projectDir, '../android')
