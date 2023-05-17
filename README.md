@@ -4,11 +4,11 @@
 
 **SDK Version**
 iOS 1.8.4
-Android 5.3.1
+Android > 6.8.0 [wechat sdk 官方文档](https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Access_Guide/Android.html)
 
 **Environment**
-Xcode 10.2.1
-react-native 0.59.5
+Xcode 14.3
+react-native 0.59.10
 
 ## [Example](example/App.js)
 
