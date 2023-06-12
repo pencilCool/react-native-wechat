@@ -97,10 +97,7 @@
         }
     }
 
-    // open ...
-    else if ([resp isKindOfClass:[OpenTempSessionResp class]]) {
-        aReqName = NSStringFromClass([OpenTempSessionReq class]);
-    } else if ([resp isKindOfClass:[OpenRankListResp class]]) {
+    else if ([resp isKindOfClass:[OpenRankListResp class]]) {
         aReqName = NSStringFromClass([OpenRankListReq class]);
     } else if ([resp isKindOfClass:[OpenWebviewResp class]]) {
         aReqName = NSStringFromClass([OpenWebviewReq class]);

@@ -8,6 +8,18 @@
 #import "RNLWeChatReq.h"
 #import "RNLWeChatResp.h"
 
+#define WX_SendReq(ReqClass) \
+[WXApi sendReq:req completion:^(BOOL success) { \
+if(success){  \
+[self addResponseHandleWithName:NSStringFromClass([ReqClass class])  \
+andResolver:resolve  \
+andRejecter:reject];  \
+} else {  \
+reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),  \
+@"Open business view request failed.", nil);  \
+}  \
+}];
+
 static NSString* RNLWeChatGetErrorCode(RNLWeChatError error) {
     return [NSString stringWithFormat:@"%ld", (long)error];
 }
@@ -67,9 +79,12 @@ RCT_REMAP_METHOD(initialize,
     } else {
         [WXApi stopLog];
     }
-
+    
+    
+//    [WXApi registerApp:appID enableMTA:NO]
+    
     NSString *appID = [RCTConvert NSString:option[@"appID"]];
-    if ([WXApi registerApp:appID enableMTA:NO]) {
+    if ([WXApi registerApp:appID universalLink:@""]) {
         resolve(nil);
     } else {
         reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
@@ -135,31 +150,31 @@ RCT_REMAP_METHOD(auth,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     SendAuthReq *req = [RNLWeChatReq getSendAuthReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         BOOL aResult;
         if([RCTConvert BOOL:option[@"fallback"]]) {
             UIViewController *controller = RCTPresentedViewController();
             if (controller) {
-                aResult = [WXApi sendAuthReq:req
-                              viewController:controller
-                                    delegate:mWeChatAPIDelegate];
+                [WXApi sendAuthReq:req viewController:controller delegate:mWeChatAPIDelegate completion:^(BOOL success) {
+                    if(success) {
+                        [self addResponseHandleWithName:NSStringFromClass([SendAuthReq class])
+                                            andResolver:resolve
+                                            andRejecter:reject];
+                    } else {
+                        reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
+                               @"Root view controller isn't exist.", nil);
+                    }
+                }];
             } else {
                 reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
                        @"Root view controller isn't exist.", nil);
                 return;
             }
         } else {
-            aResult = [WXApi sendReq:req];
+            WX_SendReq(SendAuthReq);
         }
-        if (aResult) {
-            [self addResponseHandleWithName:NSStringFromClass([SendAuthReq class])
-                                     andResolver:resolve
-                                     andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Send authorize request failed.", nil);
-        }
+       
     });
 }
 
@@ -170,16 +185,9 @@ RCT_REMAP_METHOD(pay,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     PayReq *req = [RNLWeChatReq getPayReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([PayReq class])
-                                     andResolver:resolve
-                                     andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Send pay request failed.", nil);
-        }
+        WX_SendReq(PayReq);
     });
 }
 
@@ -189,16 +197,9 @@ RCT_REMAP_METHOD(offlinePay,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     WXOfflinePayReq *req = [RNLWeChatReq getWXOfflinePayReqWithOption:nil];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([WXOfflinePayReq class])
-                                     andResolver:resolve
-                                     andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Send offline pay request failed.", nil);
-        }
+        WX_SendReq(WXOfflinePayReq);
     });
 }
 
@@ -209,16 +210,9 @@ RCT_REMAP_METHOD(nontaxPay,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     WXNontaxPayReq *req = [RNLWeChatReq getWXNontaxPayReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([WXNontaxPayReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Nontax pay request failed.", nil);
-        }
+        WX_SendReq(WXNontaxPayReq);
     });
 }
 
@@ -229,38 +223,12 @@ RCT_REMAP_METHOD(payInsurance,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     WXPayInsuranceReq *req = [RNLWeChatReq getWXPayInsuranceReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([WXPayInsuranceReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Pay insurance request failed.", nil);
-        }
+        WX_SendReq(WXPayInsuranceReq);
     });
 }
 
-#pragma mark - openTempSession
-RCT_REMAP_METHOD(openTempSession,
-                 openTempSessionWithOption:(NSDictionary *)option
-                 resolver:(RCTPromiseResolveBlock)resolve
-                 rejecter:(RCTPromiseRejectBlock)reject)
-{
-    OpenTempSessionReq *req = [RNLWeChatReq getOpenTempSessionReqWithOption:option];
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([OpenTempSessionReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Open temp session request failed.", nil);
-        }
-    });
-}
 
 #pragma mark - openRankList
 RCT_REMAP_METHOD(openRankList,
@@ -268,16 +236,9 @@ RCT_REMAP_METHOD(openRankList,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     OpenRankListReq *req = [RNLWeChatReq getOpenRankListReqWithOption:nil];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([OpenRankListReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Open rank list request failed.", nil);
-        }
+        WX_SendReq(OpenRankListReq);
     });
 }
 
@@ -288,16 +249,9 @@ RCT_REMAP_METHOD(openWebView,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     OpenWebviewReq *req = [RNLWeChatReq getOpenWebViewReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([OpenWebviewReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Open webview request failed.", nil);
-        }
+        WX_SendReq(OpenWebviewReq);
     });
 }
 
@@ -308,16 +262,9 @@ RCT_REMAP_METHOD(openBusinessView,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     WXOpenBusinessViewReq *req = [RNLWeChatReq getWXOpenBusinessViewReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([WXOpenBusinessViewReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Open business view request failed.", nil);
-        }
+        WX_SendReq(WXOpenBusinessViewReq);
     });
 }
 
@@ -328,52 +275,11 @@ RCT_REMAP_METHOD(openBusinessWebView,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     WXOpenBusinessWebViewReq *req = [RNLWeChatReq getWXOpenBusinessWebViewReqWithOption:option];
-
+    
+    
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([WXOpenBusinessWebViewReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Open business webview request failed.", nil);
-        }
-    });
-}
-
-#pragma mark - jumpToBizProfile
-RCT_REMAP_METHOD(jumpToBizProfile,
-                 jumpToBizProfileWithOption:(NSDictionary *)option
-                 resolver:(RCTPromiseResolveBlock)resolve
-                 rejecter:(RCTPromiseRejectBlock)reject)
-{
-    JumpToBizProfileReq *req = [RNLWeChatReq getJumpToBizProfileReqWithOption:option];
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (![WXApi sendReq:req]) {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Jump to biz profile request failed.", nil);
-        } else {
-            resolve(nil);
-        }
-    });
-}
-
-#pragma mark - jumpToBizWebView
-RCT_REMAP_METHOD(jumpToBizWebView,
-                 jumpToBizWebViewWithOption:(NSDictionary *)option
-                 resolver:(RCTPromiseResolveBlock)resolve
-                 rejecter:(RCTPromiseRejectBlock)reject)
-{
-    JumpToBizWebviewReq *req = [RNLWeChatReq getJumpToBizWebviewReqWithOption:option];
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (![WXApi sendReq:req]) {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Jump to biz webview request failed.", nil);
-        } else {
-            resolve(nil);
-        }
+        WX_SendReq(WXOpenBusinessWebViewReq);
     });
 }
 
@@ -384,16 +290,9 @@ RCT_REMAP_METHOD(addCard,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     AddCardToWXCardPackageReq *req = [RNLWeChatReq getAddCardToWXCardPackageReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([AddCardToWXCardPackageReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Add card to card package request failed.", nil);
-        }
+        WX_SendReq(AddCardToWXCardPackageReq);
     });
 }
 
@@ -404,16 +303,9 @@ RCT_REMAP_METHOD(chooseCard,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     WXChooseCardReq *req = [RNLWeChatReq getWXChooseCardReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([WXChooseCardReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Choose card request failed.", nil);
-        }
+        WX_SendReq(WXChooseCardReq);
     });
 }
 
@@ -424,16 +316,9 @@ RCT_REMAP_METHOD(chooseInvoice,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     WXChooseInvoiceReq *req = [RNLWeChatReq getWXChooseInvoiceReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([WXChooseInvoiceReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Choose invoice request failed.", nil);
-        }
+        WX_SendReq(WXChooseInvoiceReq)
     });
 }
 
@@ -444,16 +329,9 @@ RCT_REMAP_METHOD(invoiceAuthInsert,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     WXInvoiceAuthInsertReq *req = [RNLWeChatReq getWXInvoiceAuthInsertReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([WXInvoiceAuthInsertReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Invoice auth insert request failed.", nil);
-        }
+        WX_SendReq(WXInvoiceAuthInsertReq);
     });
 }
 
@@ -464,16 +342,9 @@ RCT_REMAP_METHOD(launchMiniProgram,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     WXLaunchMiniProgramReq *req = [RNLWeChatReq getWXLaunchMiniProgramReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([WXLaunchMiniProgramReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Launch mini program request failed.", nil);
-        }
+        WX_SendReq(WXLaunchMiniProgramReq);
     });
 }
 
@@ -484,16 +355,9 @@ RCT_REMAP_METHOD(subscribeMiniProgramMessage,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     WXSubscribeMiniProgramMsgReq *req = [RNLWeChatReq getWXSubscribeMiniProgramMsgReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([WXSubscribeMiniProgramMsgReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Subscribe mini program message request failed.", nil);
-        }
+        WX_SendReq(WXSubscribeMiniProgramMsgReq);
     });
 }
 
@@ -505,15 +369,7 @@ RCT_REMAP_METHOD(sendMessage,
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         SendMessageToWXReq *req = [RNLWeChatReq getSendMessageToWXReqWithOption:option];
-
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([SendMessageToWXReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Send message request failed.", nil);
-        }
+        WX_SendReq(SendMessageToWXReq);
     });
 }
 
@@ -524,16 +380,9 @@ RCT_REMAP_METHOD(subscribeMessage,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     WXSubscribeMsgReq *req = [RNLWeChatReq getWXSubscribeMsgReqWithOption:option];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([WXApi sendReq:req]) {
-            [self addResponseHandleWithName:NSStringFromClass([WXSubscribeMsgReq class])
-                                      andResolver:resolve
-                                      andRejecter:reject];
-        } else {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Subscribe message request failed.", nil);
-        }
+        WX_SendReq(WXSubscribeMsgReq);
     });
 }
 
@@ -545,12 +394,16 @@ RCT_REMAP_METHOD(sendMessageResp,
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         GetMessageFromWXResp *resp = [RNLWeChatResp getGetMessageFromWXRespWithOption:option];
-        if (![WXApi sendResp:resp]) {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Send message response failed.", nil);
-        } else {
-            resolve(nil);
-        }
+        [WXApi sendResp:resp completion:^(BOOL success) {
+            if(success) {
+                
+                resolve(nil);
+            } else {
+                reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
+                       @"Send message response failed.", nil);
+                
+            }
+        }];
     });
 }
 
@@ -562,12 +415,14 @@ RCT_REMAP_METHOD(showMessageResp,
     ShowMessageFromWXResp *resp = [RNLWeChatResp getShowMessageFromWXRespWithOption:nil];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (![WXApi sendResp:resp]) {
-            reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
-                   @"Show message response failed.", nil);
-        } else {
-            resolve(nil);
-        }
+        [WXApi sendResp:resp completion:^(BOOL success) {
+            if(!success) {
+                reject(RNLWeChatGetErrorCode(RNLWeChatInvokeFailedError),
+                       @"Show message response failed.", nil);
+            } else {
+                resolve(nil);
+            }
+        }];
     });
 }
 

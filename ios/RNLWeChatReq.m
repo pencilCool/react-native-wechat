@@ -45,13 +45,6 @@
     return req;
 }
 
-+ (OpenTempSessionReq *)getOpenTempSessionReqWithOption:(NSDictionary *)option;
-{
-    OpenTempSessionReq *req = [OpenTempSessionReq new];
-    req.username = [RCTConvert NSString:option[@"username"]];
-    req.sessionFrom = [RCTConvert NSString:option[@"session"]];
-    return req;
-}
 
 + (OpenRankListReq *)getOpenRankListReqWithOption:(NSDictionary *)option;
 {
@@ -83,23 +76,7 @@
     return req;
 }
 
-+ (JumpToBizProfileReq *)getJumpToBizProfileReqWithOption:(NSDictionary *)option
-{
-    JumpToBizProfileReq *req = [JumpToBizProfileReq new];
-    req.profileType = [RCTConvert int:option[@"type"]];
-    req.username = [RCTConvert NSString:option[@"username"]];
-    req.extMsg = [RCTConvert NSString:option[@"ext"]];
-    return req;
-}
 
-+ (JumpToBizWebviewReq *)getJumpToBizWebviewReqWithOption:(NSDictionary *)option
-{
-    JumpToBizWebviewReq *req = [JumpToBizWebviewReq new];
-    req.webType = [RCTConvert int:option[@"type"]];
-    req.tousrname = [RCTConvert NSString:option[@"username"]];
-    req.extMsg = [RCTConvert NSString:option[@"ext"]];
-    return req;
-}
 
 + (AddCardToWXCardPackageReq *)getAddCardToWXCardPackageReqWithOption:(NSDictionary *)option;
 {

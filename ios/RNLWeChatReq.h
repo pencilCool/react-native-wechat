@@ -15,8 +15,6 @@
 
 + (WXPayInsuranceReq *)getWXPayInsuranceReqWithOption:(NSDictionary *)option;
 
-+ (OpenTempSessionReq *)getOpenTempSessionReqWithOption:(NSDictionary *)option;
-
 + (OpenRankListReq *)getOpenRankListReqWithOption:(NSDictionary *)option;
 
 + (OpenWebviewReq *)getOpenWebViewReqWithOption:(NSDictionary *)option;
@@ -25,9 +23,6 @@
 
 + (WXOpenBusinessWebViewReq *)getWXOpenBusinessWebViewReqWithOption:(NSDictionary *)option;
 
-+ (JumpToBizProfileReq *)getJumpToBizProfileReqWithOption:(NSDictionary *)option;
-
-+ (JumpToBizWebviewReq *)getJumpToBizWebviewReqWithOption:(NSDictionary *)option;
 
 + (AddCardToWXCardPackageReq *)getAddCardToWXCardPackageReqWithOption:(NSDictionary *)option;
 
