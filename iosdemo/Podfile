@@ -1,0 +1,36 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'iosdemo' do
+  pod 'RNLWeChat', :path => '../'
+  pod 'Folly', :git => 'https://gitee.com/pencilCool/RN5910.git'
+  pod 'yoga',  :git=> 'https://gitee.com/pencilCool/RN5910.git'
+  pod 'React', :git => 'https://gitee.com/pencilCool/RN5910.git',:subspecs => [
+   'Core',
+   'ART',
+   'CxxBridge', 
+   'DevSupport', 
+   'RCTNetwork',
+   'RCTText',
+   'RCTWebSocket', 
+   'RCTAnimation', 
+   'RCTGeolocation', 
+   'RCTImage',
+   'RCTBlob',
+   'RCTActionSheet',
+   'RCTSettings',
+   'RCTVibration',
+   'RCTPushNotification',
+   'RCTLinkingIOS',
+   'RCTCameraRoll'
+   ]
+  target 'iosdemoTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'iosdemoUITests' do
+    # Pods for testing
+  end
+
+end

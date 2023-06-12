@@ -1,0 +1,139 @@
+PODS:
+  - boost-for-react-native (1.63.0)
+  - DoubleConversion (1.1.5)
+  - Folly (2018.10.22.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+  - glog (0.3.4)
+  - React (0.59.10):
+    - React/Core (= 0.59.10)
+  - React/ART (0.59.10):
+    - React/Core
+  - React/Core (0.59.10):
+    - yoga (= 0.59.10.React)
+  - React/CxxBridge (0.59.10):
+    - Folly (= 2018.10.22.00)
+    - React/Core
+    - React/cxxreact
+    - React/jsiexecutor
+  - React/cxxreact (0.59.10):
+    - boost-for-react-native (= 1.63.0)
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React/jsinspector
+  - React/DevSupport (0.59.10):
+    - React/Core
+    - React/RCTWebSocket
+  - React/fishhook (0.59.10)
+  - React/jsi (0.59.10):
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+  - React/jsiexecutor (0.59.10):
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React/cxxreact
+    - React/jsi
+  - React/jsinspector (0.59.10)
+  - React/RCTActionSheet (0.59.10):
+    - React/Core
+  - React/RCTAnimation (0.59.10):
+    - React/Core
+  - React/RCTBlob (0.59.10):
+    - React/Core
+  - React/RCTCameraRoll (0.59.10):
+    - React/Core
+    - React/RCTImage
+  - React/RCTGeolocation (0.59.10):
+    - React/Core
+  - React/RCTImage (0.59.10):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTLinkingIOS (0.59.10):
+    - React/Core
+  - React/RCTNetwork (0.59.10):
+    - React/Core
+  - React/RCTPushNotification (0.59.10):
+    - React/Core
+  - React/RCTSettings (0.59.10):
+    - React/Core
+  - React/RCTText (0.59.10):
+    - React/Core
+  - React/RCTVibration (0.59.10):
+    - React/Core
+  - React/RCTWebSocket (0.59.10):
+    - React/Core
+    - React/fishhook
+    - React/RCTBlob
+  - RNLWeChat (0.0.4):
+    - React
+    - WechatOpenSDK (= 1.8.7.1)
+  - WechatOpenSDK (1.8.7.1)
+  - yoga (0.59.10.React)
+
+DEPENDENCIES:
+  - Folly (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/ART (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/Core (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/CxxBridge (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/DevSupport (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTActionSheet (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTAnimation (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTBlob (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTCameraRoll (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTGeolocation (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTImage (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTLinkingIOS (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTNetwork (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTPushNotification (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTSettings (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTText (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTVibration (from `https://gitee.com/pencilCool/RN5910.git`)
+  - React/RCTWebSocket (from `https://gitee.com/pencilCool/RN5910.git`)
+  - RNLWeChat (from `../`)
+  - yoga (from `https://gitee.com/pencilCool/RN5910.git`)
+
+SPEC REPOS:
+  trunk:
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+    - WechatOpenSDK
+
+EXTERNAL SOURCES:
+  Folly:
+    :git: https://gitee.com/pencilCool/RN5910.git
+  React:
+    :git: https://gitee.com/pencilCool/RN5910.git
+  RNLWeChat:
+    :path: "../"
+  yoga:
+    :git: https://gitee.com/pencilCool/RN5910.git
+
+CHECKOUT OPTIONS:
+  Folly:
+    :commit: ef8b438d8b9868a4fca8bf7a2353e376cfea9b80
+    :git: https://gitee.com/pencilCool/RN5910.git
+  React:
+    :commit: ef8b438d8b9868a4fca8bf7a2353e376cfea9b80
+    :git: https://gitee.com/pencilCool/RN5910.git
+  yoga:
+    :commit: ef8b438d8b9868a4fca8bf7a2353e376cfea9b80
+    :git: https://gitee.com/pencilCool/RN5910.git
+
+SPEC CHECKSUMS:
+  boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
+  Folly: de497beb10f102453a1afa9edbf8cf8a251890de
+  glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
+  React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
+  RNLWeChat: 96e13772efddf42dc316460620f1ad227c07b9f6
+  WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
+  yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
+
+PODFILE CHECKSUM: 4d94d432c0f949d1568cc853a8cd5d88d4573229
+
+COCOAPODS: 1.12.1
